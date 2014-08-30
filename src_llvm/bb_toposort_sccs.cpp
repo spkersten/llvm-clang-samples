@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 
   // Parse the input LLVM IR file into a module.
   SMDiagnostic Err;
-  Module *Mod = ParseIRFile(argv[2], Err, getGlobalContext());
+  std::unique_ptr<Module> Mod = parseIRFile(argv[2], Err, getGlobalContext());
   if (!Mod) {
     Err.print(argv[0], errs());
     return 1;
